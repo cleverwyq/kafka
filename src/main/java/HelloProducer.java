@@ -8,11 +8,12 @@ import java.util.Properties;
 
 public class HelloProducer {
     public static final String brokerList = "localhost:9092";
-    public static final String topic = "demo-topic";
+    //public static final String topic = "demo-topic";
 
     public static void main(String[] args) {
         System.out.println(args.length);
         String content = args.length >= 1 ? args[0] : "Hello Kafka";
+        String topic = args.length >= 2 ? args[1] :"demo-topic";
         Properties properties = new Properties();
         properties.put("client.id", "young_1");
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
