@@ -14,14 +14,22 @@ public class HelloStream {
         streamProps.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
         final StreamsBuilder builder = new StreamsBuilder();
-        final KeyValueMapper<Object, Object, KeyValue<Long,String>> mapper = new KeyValueMapper<Object, Object, KeyValue<Long,String>>() {
+//        final KeyValueMapper<Object, Object, KeyValue<Long,String>> mapper = new KeyValueMapper<Object, Object, KeyValue<Long,String>>() {
+//
+//            public KeyValue<Long,String> apply(Object key, Object value) {
+//                return new KeyValue<Long, String>(Long.valueOf(String.valueOf(key)), String.valueOf(value));
+//            }
+//        };
 
-            public KeyValue<Long,String> apply(Object key, Object value) {
-                return new KeyValue<Long, String>(Long.valueOf(String.valueOf(key)), String.valueOf(value));
+        KeyValueMapper<Object , Object, KeyValue<String, String>> mapper = new KeyValueMapper<Object, Object, KeyValue<String, String> >() {
+            @Override
+            public KeyValue<String, String> apply(Object key, Object value) {
+                return  new KeyValue<String, String>(String.valueOf(key)+ "&&", "hi");
             }
         };
-
-        builder.stream("demo-topic").map(mapper).to("demo-topic2");
+        builder.stream("demo-topic").map(
+                mapper
+        ).to("demo-topic2");
 
         Topology tp = builder.build();
 
