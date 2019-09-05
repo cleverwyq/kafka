@@ -1,0 +1,5 @@
+source run-producer.sh  "1,a" input_left "key1"
+source run-producer.sh  "2,a" input_left "key1"
+source run-producer.sh  "3,b" input_left "key2"
+source run-producer.sh  "4.b" input_left "key2"
+source run-producer.sh  "5.b" input_left "key1"
